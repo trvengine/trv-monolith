@@ -1,0 +1,23 @@
+[package]
+name = "trv_engine"
+version = "1.0.0"
+authors = ["TRV™ Labs <contact@trvengine.com>"]
+edition = "2021"
+description = "TRV™ Cryptographic Engine — A dependency-free Unified Functional Manifold based on the BTGS primitive."
+license-file = "license/TRV_ENGINE_LICENSE.md"
+readme = "README.md"
+repository = "https://github.com/trvengine/trv-monolith"
+homepage = "https://www.trvengine.com"
+keywords = ["cryptography", "btgs", "encryption", "hash", "dependency-free"]
+categories = ["cryptography", "algorithms", "no-std"]
+
+[lib]
+name = "trv_engine"
+path = "core/mod.rs"
+
+[[bin]]
+name = "trv"
+path = "api/main.rs"
+
+[dependencies]
+# Zero dependencies — The TRV™ Way.
