@@ -10,7 +10,7 @@ TRV™ Labs welcomes independent cryptanalysis, technical evaluation, and respon
 - implementation behavior,
 - and operational security characteristics.
 
-We are committed to coordinated disclosure practices that support the continued resilience and integrity of the TRV™ ecosystem.
+We are committed to coordinated disclosure practices that support the continued resilience and integrity of the TRV™ ecosystem. Researchers are encouraged to utilize the included **TRV™ Attack Verification Suite** (`cargo run --example verify_attacks --release`) as a foundational baseline for their empirical evaluation.
 
 ---
 
@@ -20,8 +20,11 @@ If you discover a potential vulnerability, cryptographic weakness, implementatio
 
 ### Security Contact
 
-**TRV™ Labs**  
-security@trvengine.com
+**TRV™ Labs Security Contact**  
+Email: security@trvengine.com  
+Website: [trvengine.com](https://www.trvengine.com)  
+X (Twitter): [@Trvengine](https://x.com/Trvengine)  
+Discord: [trvengine](https://discord.gg/trvengine)
 
 Please include:
 - A detailed description of the issue
