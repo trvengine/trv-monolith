@@ -63,7 +63,8 @@ The TRV-MAC configuration is designed to achieve **Existential Unforgeability un
 
 ---
 
-## 5. Threat Model
+## 5. Threat Model & Adversarial Ledger
+For the full public ledger documenting the primitive's cryptanalytic behavior and architectural immunity against standard threat vectors, refer directly to the official **[Cryptanalytic Strength Standard](TRV_CRYPTANALYTIC_STRENGTH.md)** and the **[Verification & Audit Standard](TRV_CRYPTANALYSIS_AUDIT.md)**.
 
 ### 5.1 Adversarial Capabilities
 *   **Known Plaintext Attack (KPA)**: The adversary may possess pairs of plaintexts and their corresponding ciphertexts.
