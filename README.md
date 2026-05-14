@@ -16,7 +16,7 @@ TRV™ is designed as a "Digital Island"—a self-contained cryptographic ecosys
 The mathematical foundations, complexity analysis, and bijectivity proofs for the **BTGS** primitive are published in the formal monograph:
 
 **"A Boolean Transformation Gate System (BTGS) for Cryptographic State Construction"**  
-*Published on Zenodo: https://doi.org/10.5281/zenodo.20147049*
+*Published on Zenodo: https://zenodo.org/records/20147049?preview_file=BTGS_PREPRINT.pdf*
 
 ---
 
@@ -33,7 +33,7 @@ To evaluate the TRV™ ecosystem, refer to the following institutional assets:
 
 | Asset | Location | Description |
 | :--- | :--- | :--- |
-| **Mathematical Monograph** | https://doi.org/10.5281/zenodo.20147049 | Formal scholarly disclosure of the BTGS primitive. |
+| **Mathematical Monograph** | https://zenodo.org/records/20147049?preview_file=BTGS_PREPRINT.pdf | Formal scholarly disclosure of the BTGS primitive. |
 | **Technical Standard** | `docs/spec/TRV_GATE_SPEC.md` | Detailed specification of all functional configurations. |
 | **Engine License** | `license/TRV_ENGINE_LICENSE.md` | The TRV™ Cryptographic Engine License (TCEL). |
 | **Formula License** | `license/BTGS_LICENSE.md` | The legal protection for the underlying mathematical logic. |
