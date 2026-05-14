@@ -15,7 +15,7 @@ The TRV™ engine operates through a singular, bitwise-reversible, non-linear tr
 *   $y = (a \land \neg c) \lor (\neg b \land c)$
 *   $z = (~b \land \neg c) \lor (\neg a \land c)$
 
-For the mathematical derivation, see: [BTGS Preprint](https://doi.org/10.5281/zenodo.20147049).
+For the mathematical derivation, see: [BTGS Preprint](https://zenodo.org/records/20147049?preview_file=BTGS_PREPRINT.pdf).
 
 ## 3. Functional Manifold Configurations
 The following configurations define how the Unified Gate processes data to achieve specific security objectives. The only variables are the **State Initialization** and the **Round Count ($R$)**.
