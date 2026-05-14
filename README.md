@@ -1,3 +1,11 @@
+<img width="1103" height="565" alt="core-diagram" src="https://github.com/user-attachments/assets/ffe1f19d-081a-4955-8371-12cfd377cbe9" />
+
+
+
+
+
+
+
 # TRV™ Cryptographic Engine (TRVEngine™)
 
 **A Unified Functional Manifold for High-Performance Cryptographic State Transformation.**
