@@ -5,7 +5,8 @@
 **Classification:** Proprietary Cryptographic Standard
 
 ## 1. Abstract
-The **TRV™ Cryptographic Engine** is a **Unified Functional Manifold** built upon the **Boolean Transformation Gate System (BTGS)**. Unlike coupled systems that utilize separate algorithms for disparate tasks, TRV™ utilizes a singular logic gate for all cryptographic operations. This standard defines the primary **Functional Configurations** for hashing, stream encryption, and key derivation.
+The **TRV™ Cryptographic Engine** is a **Unified Functional Manifold** built upon the **Boolean Transformation Gate System (BTGS)**. Unlike coupled systems that utilize separate algorithms for disparate tasks, TRV™ utilizes a singular logic gate for all cryptographic operations. This standard defines the primary **Functional Configurations** for hashing, stream encryption, and key derivation. The BTGS primitive defines a bijective Boolean
+transformation over its operational state domain.
 
 ---
 
