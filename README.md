@@ -69,6 +69,7 @@ To verify the authenticity of a license, a representative, or to follow the offi
 *   **Instagram**: [@trvengine](https://instagram.com/trvengine)
 *   **Reddit**: [u/trvengine](https://reddit.com/user/trvengine)
 *   **Discord**: [trvengine](https://discord.gg/trvengine)
+*   **Email**: contact@trvengine.com
 
 ---
 **Developed by TRV™ Labs**  
