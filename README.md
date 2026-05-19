@@ -49,7 +49,51 @@ To evaluate the TRV™ ecosystem, refer to the following institutional assets:
 
 ---
 
-## 5. Licensing and Ownership
+## 5. Verification, Tests, & Benchmarks
+
+TRV™ Monolith is packaged with a comprehensive cryptographic integration test suite and a high-performance microarchitectural benchmark suite to guarantee both functional correctness and speed.
+
+### 5.1 Running the Cryptographic Integration Tests
+The integration test suite validates Known Answer Tests (KATs) for Hashing and Key Derivation, CTR stream cipher reversibility, BTGS Boolean truth table properties, and verifies padding immunity against trailing null-byte collision vulnerabilities.
+
+To execute the test suite:
+```bash
+cargo test
+```
+
+### 5.2 Running the Performance Benchmark Suite
+The performance benchmarks are located in the `Benchmark/src/` subdirectory. To isolate hardware performance, these files compile as standalone native programs. 
+
+To compile and run any benchmark under native hardware optimizations (`-O3 -C target-cpu=native`):
+
+1. **Hash Benchmark (SHA3-256 vs TRV-Hash):**
+   ```bash
+   rustc -C opt-level=3 -C target-cpu=native Benchmark/src/sha3_vs_trv.rs -o sha3_vs_trv && ./sha3_vs_trv
+   ```
+2. **Parallel Hash Benchmark (Multi-threaded SHA3 vs TRV):**
+   ```bash
+   rustc -C opt-level=3 -C target-cpu=native Benchmark/src/sha3_vs_trv_parallel.rs -o sha3_vs_trv_parallel && ./sha3_vs_trv_parallel
+   ```
+3. **Stream Cipher Benchmark (AES-256-CTR vs TRV-CTR):**
+   ```bash
+   rustc -C opt-level=3 -C target-cpu=native Benchmark/src/aes_vs_trv.rs -o aes_vs_trv && ./aes_vs_trv
+   ```
+4. **Key Derivation Benchmark (PBKDF2-SHA3 vs TRV-KDF):**
+   ```bash
+   rustc -C opt-level=3 -C target-cpu=native Benchmark/src/kdf_vs_trv.rs -o kdf_vs_trv && ./kdf_vs_trv
+   ```
+5. **Message Authentication Benchmark (HMAC-SHA3 vs TRV-MAC):**
+   ```bash
+   rustc -C opt-level=3 -C target-cpu=native Benchmark/src/mac_vs_trv.rs -o mac_vs_trv && ./mac_vs_trv
+   ```
+6. **Round Sensitivity & Avalanche Diffusion Audit:**
+   ```bash
+   rustc -C opt-level=3 -C target-cpu=native Benchmark/src/trv_rounds_sensitivity.rs -o trv_rounds_sensitivity && ./trv_rounds_sensitivity
+   ```
+
+---
+
+## 6. Licensing and Ownership
 The TRV™ Cryptographic Engine and the BTGS primitive are the **exclusive personal intellectual property of Ihentuge Uchechukwu**, founder of **TRV™ Labs**.
 
 This software is distributed under the **TRV™ Cryptographic Engine License (TCEL)**. 
@@ -61,7 +105,7 @@ Any entity claiming to represent **TRV™ Labs** must be explicitly authorized b
 
 Refer to the `license/` directory for full legal terms.
 
-## 6. Official Channels & Verification
+## 7. Official Channels & Verification
 To verify the authenticity of a license, a representative, or to follow the official development of the TRV™ ecosystem, refer only to the following verified channels:
 
 *   **Website**: [trvengine.com](https://www.trvengine.com)
