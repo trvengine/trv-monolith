@@ -13,10 +13,10 @@
 ---
 
 ## 1. Overview
-The **TRV™ Cryptographic Engine (TRVEngine™)** is a dependency-free, institutional-grade cryptographic suite built entirely upon the **Boolean Transformation Gate System (BTGS)** primitive. Unlike traditional cryptographic libraries that rely on disparate algorithms for different tasks, TRV™ utilizes a **Unified Functional Manifold** that handles Hashing, Streaming, Key Derivation, and Message Authentication via a single, deterministic state-transformation core.
+The **TRV™ monolith Cryptographic Engine (TRVEngine™)** is a dependency-free, institutional-grade cryptographic suite built entirely upon the **Boolean Transformation Gate System (BTGS)** primitive. Unlike traditional cryptographic libraries that rely on disparate algorithms for different tasks, TRV™ utilizes a **Unified Functional Manifold** that handles Hashing, Streaming, Key Derivation, and Message Authentication via a single, deterministic state-transformation core.
 
 ### Core Philosophy: Digital Sovereignty
-TRV™ is designed as a "Digital Island"—a self-contained cryptographic ecosystem that does not rely on external standards or third-party dependencies for its execution. It is built for environments where performance, transparency, and architectural purity are paramount.
+TRV™ monolith is designed as a "Digital Island"—a self-contained cryptographic ecosystem that does not rely on external standards or third-party dependencies for its execution. It is built for environments where performance, transparency, and architectural purity are paramount.
 
 ---
 
