@@ -35,11 +35,11 @@ Modified inputs, including trailing padding or extended suffixes, produce distin
 3.1 Dynamic Seed Expansion & Multi-Block Evolution
 
 ```rust
-let seedling = master_key ^ (block_idx as u128);
+let mut seedling = master_key ^ (block_idx as u128);
 
-let sched = trv_get_schedule(seedling, 128);
-for &k in &sched {
-    state.trv_lock_step(k);
+for _ in 0..128 {
+    state.trv_lock_step(seedling);
+    seedling = seedling.wrapping_add(state.hi ^ state.lo);
 }
 ```
 Observed Effect:
@@ -47,11 +47,25 @@ An earlier revision of this construction reused a single static `seedling`
 across all 128 rounds of a block. That allowed low-complexity (patterned)
 key/IV pairs - e.g. an all-zero key, or any repeated-byte key - to settle
 into a short state cycle, producing a degenerate, single-repeated-byte
-keystream block instead of high-entropy output. The seedling is now expanded
-per-round via `trv_get_schedule` before each block's 128-round saturation,
-which breaks that cycle. Cross-block keystream measurements show reduced
-observable correlation between sequential output blocks under tested
-configurations, including previously-degenerate patterned-key cases.
+keystream block instead of high-entropy output.
+
+An intermediate revision expanded the seedling per-round via a closed-form
+schedule function before the 128-round saturation. That revision broke the
+short-cycle issue but was itself a fully linear, publicly-invertible
+recurrence over the round index - recovering any single schedule value
+recovered the entire schedule, with no dependency on the gate's non-linear
+outputs.
+
+The current revision instead evolves the seedling from the actual post-step
+state (`hi ^ lo`) after every round, tying each round's seedling to the real
+accumulated history of the non-linear `y` output rather than a
+publicly-precomputable function of the round index. Attempting to predict
+this construction's output using only the linear component of the gate
+(skipping the real quadratic `y` computation) diverges from the real output,
+confirming the non-linear state genuinely contributes. Cross-block keystream
+measurements show reduced observable correlation between sequential output
+blocks under tested configurations, including previously-degenerate
+patterned-key cases.
 
 4. Threat Domain 3: Differential Behavior & Diffusion Metrics
 4.1 Strict Avalanche Evaluation (SAC)
