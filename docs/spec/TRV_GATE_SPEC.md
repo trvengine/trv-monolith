@@ -22,8 +22,11 @@ For the mathematical derivation, see: [BTGS Preprint](https://zenodo.org/records
 The following configurations define how the Unified Gate processes data to achieve specific security objectives. The only variables are the **State Initialization** and the **Round Count ($R$)**.
 
 ### 3.1 TRV-Stream (Stream-State Encryption)
-*   **Configuration**: Counter Mode (CTR) with Dynamic Key-Counter Fusion Seedlings (`key ^ block_idx`), expanded per-round via the TRV Key Schedule (`trv_get_schedule`) rather than reused statically across all 128 rounds of a block.
-*   **Security Round Count ($R$)**: 128 Rounds per block (Ultra-Saturated Opacity), each round driven by a distinct schedule-derived seedling to prevent low-complexity key/IV pairs from settling into a short state cycle.
+*   **Configuration**: Counter Mode (CTR) with Dynamic Key-Counter Fusion Seedlings (`key ^ block_idx`) as the initial value. The seedling then evolves round-to-round as `seedling += (hi ^ lo)`, using the actual post-step state after every round rather than a value reused statically or precomputed from a closed-form function of the round index.
+*   **Security Round Count ($R$)**: 128 Rounds per block (Ultra-Saturated Opacity). Because each round's seedling depends on the real, accumulated non-linear state from prior rounds, the schedule is not reconstructable from the round index alone, which prevents both the short-cycle collapse seen with a static seedling and the closed-form invertibility of a precomputed schedule.
+ 
+* ### 3.2 TRV-Hash (Digest)
+A 256-bit cryptographic digest utilizing the BTGS primitive in an iterative continuous byte-wise seedling manifold.
 
 *   **Absorption Phase**:
     1.  Message is absorbed continuously byte-by-byte (`&[u8]`).
