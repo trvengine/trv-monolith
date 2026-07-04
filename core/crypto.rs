@@ -56,10 +56,10 @@ pub fn trv_ctr_stream(data: &[u8], key: u128, iv: u128) -> Vec<u8> {
             let seedling = key ^ (block_idx as u128);
             let mut state = TrvState::with_values(iv, key);
 
-            // 128-Round Ultra-Saturation for Stream Opacity.
-            let sched = trv_get_schedule(seedling, 128);
-            for &k in &sched {
-                state.trv_lock_step(k);
+           // 128-Round Ultra-Saturation for Stream Opacity.
+            for _ in 0..128 {
+                state.trv_lock_step(seedling);
+                seedling = seedling.wrapping_add(state.hi ^ state.lo);
             }
             let ks = state.to_bytes();
             
