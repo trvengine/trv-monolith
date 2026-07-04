@@ -3,8 +3,21 @@
 // Licensed under the "TRV™ Cryptographic Engine License (TCEL)".
 use std::fs;
 use std::io::{self, Write};
-use std::path::Path;
+use std::path::{Component, Path};
 use std::convert::TryInto;
+
+/// Rejects any entry name that is absolute or contains a parent-directory
+/// (`..`) component, which would otherwise let a crafted or tampered vault
+/// stream write files outside the intended target directory (path
+/// traversal / "Zip Slip" class vulnerability - the name is generic to the
+/// bug pattern, not specific to the ZIP format).
+fn is_safe_relative_path(name: &str) -> bool {
+    let path = Path::new(name);
+    if path.is_absolute() {
+        return false;
+    }
+    !path.components().any(|c| matches!(c, Component::ParentDir | Component::Prefix(_) | Component::RootDir))
+}
 
 pub fn trv_stream_pack(dir_path: &Path) -> io::Result<Vec<u8>> {
     let mut stream = Vec::new();
@@ -46,6 +59,12 @@ pub fn trv_stream_unpack(stream: &[u8], target_dir: &Path) -> io::Result<()> {
         cursor += nl;
         let data = &stream[cursor..cursor+dl];
         cursor += dl;
+        if !is_safe_relative_path(&name) {
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidData,
+                format!("refusing to unpack unsafe entry name: {name:?}"),
+            ));
+        }
         let out_path = target_dir.join(name);
         if let Some(p) = out_path.parent() { fs::create_dir_all(p)?; }
         fs::File::create(out_path)?.write_all(data)?;
