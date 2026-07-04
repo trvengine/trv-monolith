@@ -197,9 +197,12 @@ pub fn trv_ctr_stream(data: &[u8], key: u128, iv: u128) -> Vec<u8> {
     let mut offset = 0;
     while offset < data.len() {
         let block_idx = offset / 16;
-        let seedling = key ^ (block_idx as u128);
+        let mut seedling = key ^ (block_idx as u128);
         let mut state = TrvState::with_values(iv, key);
-        for _ in 0..128 { state.trv_lock_step(seedling); }
+        for _ in 0..128 {
+            state.trv_lock_step(seedling);
+            seedling = seedling.wrapping_add(state.hi ^ state.lo);
+        }
         let ks = state.to_bytes();
         
         let chunk_len = std::cmp::min(data.len() - offset, 16);
