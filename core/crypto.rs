@@ -55,9 +55,11 @@ pub fn trv_ctr_stream(data: &[u8], key: u128, iv: u128) -> Vec<u8> {
             // High-Entropy Seedling Construction (Key-Counter Fusion)
             let seedling = key ^ (block_idx as u128);
             let mut state = TrvState::with_values(iv, key);
-            
-            // 128-Round Ultra-Saturation for Stream Opacity
-            for _ in 0..128 { state.trv_lock_step(seedling); }
+
+            // 128-Round Ultra-Saturation for Stream Opacity.
+            for round in 0u128..128 {
+                state.trv_lock_step(seedling ^ round.wrapping_mul(GOLDEN));
+            }
             let ks = state.to_bytes();
             
             // Apply keystream to the next 16 bytes (or remainder)
