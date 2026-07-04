@@ -37,12 +37,21 @@ Modified inputs, including trailing padding or extended suffixes, produce distin
 ```rust
 let seedling = master_key ^ (block_idx as u128);
 
-for _ in 0..128 {
-    state.trv_lock_step(seedling);
+let sched = trv_get_schedule(seedling, 128);
+for &k in &sched {
+    state.trv_lock_step(k);
 }
 ```
 Observed Effect:
-Cross-block keystream measurements show reduced observable correlation between sequential output blocks under tested configurations.
+An earlier revision of this construction reused a single static `seedling`
+across all 128 rounds of a block. That allowed low-complexity (patterned)
+key/IV pairs - e.g. an all-zero key, or any repeated-byte key - to settle
+into a short state cycle, producing a degenerate, single-repeated-byte
+keystream block instead of high-entropy output. The seedling is now expanded
+per-round via `trv_get_schedule` before each block's 128-round saturation,
+which breaks that cycle. Cross-block keystream measurements show reduced
+observable correlation between sequential output blocks under tested
+configurations, including previously-degenerate patterned-key cases.
 
 4. Threat Domain 3: Differential Behavior & Diffusion Metrics
 4.1 Strict Avalanche Evaluation (SAC)
