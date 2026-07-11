@@ -2,6 +2,7 @@
 // Verifies bit-perfection, collision immunity, cipher reversibility, and KDF accuracy.
 
 use trv_engine::{trv_hash, trv_ctr_stream, trv_kdf, trv_gate, TrvState};
+use trv_engine::kdf::DEFAULT_MEMHARD_BUF_WORDS;
 
 fn to_hex(bytes: &[u8]) -> String {
     bytes.iter().map(|b| format!("{:02x}", b)).collect()
@@ -78,10 +79,10 @@ fn test_ctr_cipher_encryption_decryption_roundtrip() {
 #[test]
 fn test_kdf_known_answer_vector() {
     let password = "TrvSecurePassword2026!";
-    let key = trv_kdf(password);
-    
-    // Verifies correct derivation under 100,000 rounds
-    let expected_key: u128 = 33096863191090037943746484960628080543;
+    let key = trv_kdf(password, 0, DEFAULT_MEMHARD_BUF_WORDS);
+
+    // KAT vector for the memory-hard trv_kdf (10 MiB scratch buffer).
+    let expected_key: u128 = 167535634970724018476792945253897009394;
     assert_eq!(key, expected_key, "KDF Known Answer Test mismatch!");
 }
 
