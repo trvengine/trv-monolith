@@ -41,6 +41,8 @@ A 256-bit cryptographic digest utilizing the BTGS primitive in an iterative cont
 ### 3.3 TRV-KDF (Key Derivation)
 *   **Hardening Rounds**: 100,000 Iterations.
 *   **Feedback**: Periodic seedling updates and state rotations (Left-13) to maximize bit-work and resist ASIC acceleration.
+*   **Memory-Hardness**: Each round performs a data-dependent read-modify-write against a 10 MiB scratch buffer, sized above typical shared L3 cache capacity so that concurrent password-guessing attempts contend for the same fast memory rather than running independently on separate ALUs. The buffer index is derived from the evolving manifold state and cannot be precomputed ahead of the pass.
+*   **Salt**: A 128-bit salt is absorbed into the manifold the same way password bytes are (its own `trv_lock_step` pass, not a bare XOR), ensuring identical passwords across different vaults or users never derive the same key. The salt is drawn from two independent, non-OS-RNG entropy sources: inter-keystroke timing jitter during interactive password entry, and a heap-allocation address randomized per-process by the operating system's address-space layout randomization. It is stored in plaintext alongside the ciphertext/signature (it is not a secret, only a uniqueness guarantee) and whitened through the same gate primitive before use.
 
 ### 3.4 TRV-MAC (Message Authentication)
 *   **Construction**: Keyed hashing manifold.
